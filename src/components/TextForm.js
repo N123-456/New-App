@@ -39,16 +39,16 @@ export default function TextForm(props) {
             rows="8"
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+        <button disabled={text.length===0} className="btn btn-primary mx-2" onClick={handleUpClick}>
           Convert To Upper Case
         </button>
-        <button
+        <button disabled={text.length===0}
           className="btn btn-primary mx-2"
           onClick={() => handleLowClick()}
         >
           Convert To Lower Case
         </button>
-        <button
+        <button disabled={text.length===0}
           className="btn btn-primary mx-2"
           onClick={copyText}
         >
@@ -62,7 +62,7 @@ export default function TextForm(props) {
         </p>
         <p>{0.008 * text.split(" ").length} Minutes</p>
         <h2>Preview</h2>
-        <p>{text.length>0?text:"Enter something in the textbox above to preview it here"}</p>
+        <p>{text.length>0?text:"Enter something in the text-box above to preview it here"}</p>
       </div>
     </>
   );

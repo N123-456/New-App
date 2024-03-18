@@ -11,6 +11,7 @@ import {
   Route,
   Link,
   useRouteMatch,
+  Routes,
 } from "react-router-dom";
 function App() {
   const [mode, setMode] = useState("");
@@ -32,7 +33,7 @@ function App() {
       showAlert(" Light mode has been enabled", "success");
     }
   };
-  return (
+  return(
     <>
       <Router>
         <Navbar
@@ -43,17 +44,20 @@ function App() {
         />
         <Alert alert={alert} />
         <div className="container my 3">
-          <Switch>
-            <Route exact path="/about">
-              <About />
-            </Route>
-            <Route path="/">
-              <TextForm heading="ABC FORM" mode={mode} showAlert={showAlert} />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </>
+      
+        <Routes>
+        <Route path="/" element={<TextForm
+                  heading=" Try TextUtils-word counter,character counter,remove extra spaces"
+                  mode={mode}
+                  showAlert={showAlert}
+                />} />
+<Route path="/about" element={<About/>} />
+</Routes>             
+  </div>
+ 
+  </Router>  
+      
+  </>
   );
 }
 
