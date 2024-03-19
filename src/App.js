@@ -1,65 +1,46 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import TextForm from "./components/TextForm";
-import About from "./components/About";
-import { useState } from "react";
-import Alert from "./Alert";
+import './App.css';
+
+import React, { useState } from 'react'
+import Navbar from './components/Navbar';
+import News from './components/News';
+
+import LoadingBar from 'react-top-loading-bar'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
+  BrowserRouter as Router, 
   Routes,
-} from "react-router-dom";
-function App() {
-  const [mode, setMode] = useState("");
-  const [alert, setAlert] = useState(null);
-  const showAlert = (message, type) => {
-    setAlert({
-      msg: message,
-      type: type,
-    });
-  };
-  const toggleMode = (cls) => {
-    console.log(cls)
-    if (mode === "light") {
-      setMode("dark");
-      document.body.style.backgroundColor = "grey";
-      showAlert(" Dark mode has been enabled", "success");
-    } else {
-      setMode("light");
-      document.body.style.backgroundColor = "white";
-      showAlert(" Light mode has been enabled", "success");
-    }
-  };
+  Route,
+Link,} from "react-router-dom";
+
+const App = ()=> {
+  const pageSize = 5;
+  const apiKey = process.env.REACT_APP_NEWS_API
+  const [progress, setProgress] = useState(0)
+  
   return(
     <>
       <Router>
-        <Navbar
-          title="TextUtils"
-          aboutText="About"
-          toggleMode={toggleMode}
-          mode={mode}
-        />
-        <Alert alert={alert} />
-        <div className="container my 3">
+        <Navbar/> 
+        <LoadingBar
+        height={3}
+        color='#f11946'
+        progress={progress} 
+      />
       
         <Routes>
-        <Route path="/" element={<TextForm
-                  heading=" Try TextUtils-word counter,character counter,remove extra spaces"
-                  mode={mode}
-                  showAlert={showAlert}
-                />} />
-<Route path="/about" element={<About mode={mode}/>} />
+        <Route  path="/" element={<News setProgress={setProgress} apiKey={apiKey} key="general" pageSize={pageSize} country="in" category="general"/>}/>
+          <Route  path="/business" element={<News setProgress={setProgress} apiKey={apiKey} key="business" pageSize={pageSize} country="in" category="business"/>}/>
+          <Route  path="/entertainment" element={<News setProgress={setProgress} apiKey={apiKey} key="entertainment" pageSize={pageSize} country="in" category="entertainment"/>}/>
+          <Route  path="/general" element={<News setProgress={setProgress} apiKey={apiKey} key="general" pageSize={pageSize} country="in" category="general"/>}/>
+          <Route  path="/health" element={<News setProgress={setProgress} apiKey={apiKey} key="health" pageSize={pageSize} country="in" category="health"/>}/>
+          <Route  path="/science" element={<News setProgress={setProgress} apiKey={apiKey} key="science" pageSize={pageSize} country="in" category="science"/>}/>
+          <Route  path="/sports" element={<News setProgress={setProgress} apiKey={apiKey} key="sports" pageSize={pageSize} country="in" category="sports"/>}/>
+          <Route  path="/technology" element={<News setProgress={setProgress} apiKey={apiKey} key="technology" pageSize={pageSize} country="in" category="technology"/>}/>
 </Routes>             
-  </div>
+  
  
   </Router>  
       
   </>
-  );
+  )
 }
-
 export default App;
