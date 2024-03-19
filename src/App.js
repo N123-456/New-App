@@ -22,7 +22,8 @@ function App() {
       type: type,
     });
   };
-  const toggleMode = () => {
+  const toggleMode = (cls) => {
+    console.log(cls)
     if (mode === "light") {
       setMode("dark");
       document.body.style.backgroundColor = "grey";
@@ -51,7 +52,7 @@ function App() {
                   mode={mode}
                   showAlert={showAlert}
                 />} />
-<Route path="/about" element={<About/>} />
+<Route path="/about" element={<About mode={mode}/>} />
 </Routes>             
   </div>
  
