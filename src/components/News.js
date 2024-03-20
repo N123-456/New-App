@@ -20,9 +20,9 @@ const News = (props) => {
     const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.pageSize}`;
     setLoading(true);
     let data = await fetch(url);
-    props.setProgress(30);
+    //props.setProgress(30);
     let parsedData = await data.json();
-    props.setProgress(70);
+    //console.log("Parsed Data = ", parsedData);
     setArticles(parsedData.articles);
     setTotalResults(parsedData.totalResults);
     setLoading(false);
@@ -47,7 +47,7 @@ const News = (props) => {
     setArticles(articles.concat(parsedData.articles));
     setTotalResults(parsedData.totalResults);
   };
-
+  console.log(totalResults)
   return (
     <>
       <h1
@@ -66,6 +66,7 @@ const News = (props) => {
         <div className="container">
           <div className="row">
             {articles?.map((element) => {
+              console.log("Articles = ", element);
               return (
                 <div className="col-md-4" key={element.url}>
                   <NewsItem
@@ -87,16 +88,16 @@ const News = (props) => {
   );
 };
 
-// News.defaultProps = {
-//     country: 'in',
-//     pageSize: 8,
-//     category: 'general',
-// }
+News.defaultProps = {
+    country: 'in',
+    pageSize: 8,
+    category: 'general',
+}
 
-// News.propTypes = {
-//     country: PropTypes.string,
-//     pageSize: PropTypes.number,
-//     category: PropTypes.string,
-// }
+News.propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+}
 
 export default News;
